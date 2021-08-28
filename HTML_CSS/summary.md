@@ -35,7 +35,69 @@ HTML 확장자로 이루어진 파일은 웹 브라우저로 구동할 수 있�
 - HyperText Markup Language
 - 작성은 개발자가 하고 그 내용을 이해하는 주체는 웹 브라우저
 - HyperText : 다른 위치나 다른 웹페이지로 이동할 수 있도록 만들어진 요소들
-  - 현재는 HTML을 이루고 있는 요소 전체를 의미
+  - 현재는 HTML을 이루고 있는 요소 전체를 의미한다.
+
+### HTML5 개요
+
+HTML5로 변경되면서 문법적으로 매우 유연하게 대처할 수 있음
+
+- 태그 이름에 대문자 사용 가능
+- 속성값에 따옴표 생략
+- 속성값 생략
+- 빈 태그의 종료 태그(/) 생략
+
+### HTML5 기본 구조
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
+```
+
+```html
+<!DOCTYPE html>
+```
+
+> 현재 문서가 HTML5 문서임을 명시
+>
+> - HTML5로 바뀌면서 DOCTYPE 선언이 매우 간단해짐
+
+```html
+<html></html>
+```
+
+> HTML 문서의 루트(root)요소 정의
+
+```html
+<head></head>
+```
+
+> HTML 문서의 메타데이터(metadata)를 정의
+>
+> - 메타데이터 : HTML 문서에 대한 정보, 웹 브라우저에는 직접적으로 표현되지 않는 정보
+> - title, style, meta, link, script, base 태그 등을 이용해서 표현할 수 있음
+
+```html
+<title></title>
+```
+
+> 문서의 제목을 정의
+>
+> - 웹 브라우저 툴바(toolbar)에 표시
+> - 웹 브라우저의 즐겨찾기에 추가될 때 즐겨찾기 제목
+> - 검색 엔진의 결과 페이지에 제목으로 표시
+
+```html
+<body></body>
+```
+
+> 웹 브라우저를 통해 보이는 콘텐츠 영역
 
 ### Markup 언어와 Programming 언어
 
@@ -113,3 +175,18 @@ HTML과 CSS가 할 수 있는 것을 JavaScript가 위임해서 제어를 할 �
 
 * HTML, CSS 문법 준수
 * 동작, 레이아웃, 플러그인 호환성
+
+#### Cross Browsing은 똑같이 보이게 구현하는 것(동일성)이 아니다.
+
+Cross Browsing은 브라우저마다 렌더링 엔진이 다르기 때문에 발생한다.
+
+- 작동되지 않는 HTML5, JavaScript 코드 존재
+- 해석하지 못하는 CSS 코드 존재
+- 브라우저 버그들이 존재
+- 브라우저마다 자체적인 CSS 스타일
+
+위와 같은 내용들로 인해 Cross Browsing이 필요하다.
+
+#### Cross Browsing은 동등성을 의미한다.
+
+- Cross Browsing은 각기 다른 브라우저에서 동등한 수준의 정보, 기능을 제공하는 것이다.
