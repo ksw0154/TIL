@@ -388,14 +388,274 @@ USA
 
 ## 9. 포매팅 - b, strong
 
+- b태그와 strong 태그는 페이지에서 봤을 때 동일한 효과를 낸다.
+- 스크린 리더에서는 strong 태그를 사용했을 때 더욱 강조해서 읽어준다.
+
+### b 태그
+
+- 요약 키워드, 리뷰의 제품명 (독자의 주의를 끌기 위한 용도)
+- 특별한 중요성을 가지지 않지만 굵게 표시될 부분
+
+> b태그 예시
+
+```html
+Keywords are displayed with the default style of the
+<b>element, likely in bold</b>.
+```
+
+> element, likely in bold가 bold처리되어 나타나게 된다.
+
+### strong 태그
+
+- 높은 중요도를 가진 요소
+- 참고 또는 경고를 나타내는 단락의 레이블을 표시하는 것
+
+> strong 태그 예시
+
+```html
+<p>
+  Before proceeding, <strong>make sure you put on your safety goggles</strong>.
+</p>
+```
+
+> 주의사항
+
+특정 부분을 강조하기 위한 태그이기 때문에 문단 전체를 굵게하기 위해서 b 태그나 strong 태그로 감싸면 안된다.  
+그렇게 하기 위해서는 CSS(font-weight)를 사용해서 꾸며줘야 한다.
+
+---
+
 ## 10. 포매팅 - i, em
+
+- i, em 태그 모두 기울임꼴로 표시된다.
+- b, strong 태그처럼 완전히 다른 의미를 가진 태그이다.
+- 스타일링을 위해서 사용하려면 CSS(font-style)를 이용해서 표현해야 한다.
+
+### i 태그
+
+- 구분해야 하는 부분 (초기 HTML에서는 단순히 기울이는 시각적 요소)
+- 기술 용어, 외국인 구절, 등장인물의 생각
+
+> i 태그 예시
+
+```html
+<p>
+  라틴어 문구 <i>Veni, vidi, vici</i>는 음악과 예술, 문학에 자주 등장합니다.
+</p>
+```
+
+> <p>라틴어 문구 <i>Veni, vidi, vici</i>는 음악과 예술, 문학에 자주 등장합니다.</p>   
+> 단순히 기울이는 게 아니라 외국어를 구분하기 위해서 사용됐다.
+
+### em 태그
+
+- 강조가 들어가기 위해서 사용한다.
+- em 요소를 중첩하면 더 큰 강세를 나타낸다.
+- 강조에 중요도까지 포함된다면 strong 태그를 사용하는 것이 적합하다.
+
+> em 태그 예시
+
+```html
+<p>Get out of bed <em>now</em>!</p>
+```
+
+> <p>Get out of bed <em>now</em>!</p>
+
+---
 
 ## 11. 포매팅 - mark, small, sub, sup
 
+### mark 태그
+
+- 하이라이팅을 해주는 태그 (관심, 검색 결과)
+- 인용문에서 사용자가 관심을 가질 텍스트를 강조할 때 사용한다.
+- mark 요소는 연관성을 가진 부분, strong 요소는 중요도를 가진 부분에서 사용한다.
+
+> mark 요소 예시
+
+```html
+<blockquote>
+  During the battle, <mark>Rebel spies managed to steal secret plans</mark> to
+  the Empire’s ultimate weapon,
+</blockquote>
+```
+
+<blockquote>
+  During the battle, <mark>Rebel spies managed to steal secret plans</mark> to
+  the Empire’s ultimate weapon,
+</blockquote>
+
+### small 태그
+
+- 덧붙임 글 요소
+- 덧붙이는 글이나 저작권과 법률 표기 등의 작은 텍스트를 나타낸다.
+
+> small 요소 예시
+
+```html
+<p>
+  This is the first sentence.
+  <small>This whole sentence is in small letters.</small>
+</p>
+```
+
+> <p>This is the first sentence. <small>This whole sentence is in small letters.</small></p>
+
+### sub 태그
+
+- 아래 첨자 요소
+- 논문의 각주, 화학식에서 표현될 때 많이 사용한다.
+
+> sub 요소 예시
+
+```html
+<p>
+  Almost every developer's favorite molecule is
+  C<sub>8</sub>H<sub>10</sub>N<sub>4</sub>O<sub>2</sub>, which is commonly known
+  as "caffeine."
+</p>
+```
+
+> C<sub>8</sub>H<sub>10</sub>N<sub>4</sub>O<sub>2</sub>
+
+### sup 태그
+
+- 위 첨자 요소
+- 지수를 표기하거나 서수, 변수를 표기할 때 사용한다.
+
+> sup 요소 예시
+
+```html
+<p>
+  <var>a<sup>2</sup></var> + <var>b<sup>2</sup></var> = <var>c<sup>2</sup></var>
+</p>
+```
+
+> <p><var>a<sup>2</sup></var> + <var>b<sup>2</sup></var> = <var>c<sup>2</sup></var></p>
+
+---
+
 ## 12. 포매팅 - del, ins, code, kbd
 
-## 13. a태그와 하이퍼링크 1
+### del 태그
 
-## 14. a태그와 하이퍼링크 2
+- 제거된 텍스트의 범위를 나타낸다.
+- cite, datetime 속성을 사용할 수 있다. (ins 태그 동일)
+
+### ins 태그
+
+- 추가된 텍스트의 범위를 나타낸다.
+
+> del, ins 요소 예시
+
+```html
+<del>
+  <p>“I apologize for the delay.”</p>
+</del>
+<ins cite="../howtobeawizard.html" datetime="2018-05">
+  <p>“A wizard is never late …”</p>
+</ins>
+```
+
+<del>
+  <p>“I apologize for the delay.”</p>
+</del>
+
+<ins cite="../howtobeawizard.html" datetime="2018-05">
+  <p>“A wizard is never late …”</p>
+</ins>
+
+### code 태그
+
+- 짧은 코드 조각을 나타내는 스타일을 사용 (인라인 요소)
+- 고정폭글꼴로 나타낸다.
+- 여러 줄의 코드를 나타내려면 pre 태그를 사용한다.
+
+> code 요소 예시
+
+```html
+<p>함수 <code>selectAll()</code>는 입력 필드의 모든 텍스트를 선택</p>
+```
+
+> <p>함수 <code>selectAll()</code>는 입력 필드의 모든 텍스트를 선택</p>
+
+### kbd 태그
+
+- 키보드 입력 요소
+- 인라인 요소에 고정폭 글꼴로 나타낸다.
+
+> kbd 요소 예시
+
+```html
+<p>
+  Please press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> to re-render an
+  MDN page.
+</p>
+```
+
+> <p>Please press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>R</kbd> to re-render an MDN page.</p>
+
+---
+
+## 13, 14. a태그와 하이퍼링크
+
+- 앵커(닻) 요소
+- 하이퍼 링크를 만드는 태그
+
+### href 속성
+
+- 하이퍼링크가 가리리키는 URL (목적지를 명시해야 한다.)
+- 기본적으로 이미 방문한 페이지는 색상을 변경해서 스타일링한다.
+
+### 절대 경로와 상대경로
+
+#### 절대 경로
+
+- 현재의 위치와 관계없이 절대값의 위치로 만들어주는 것
+
+> 절대경로 예시
+
+```html
+<a href="https://www.mozilla.com">Mozilla</a>
+```
+
+> <a href="https://www.mozilla.com">Mozilla</a>
+
+#### 상대 경로
+
+- 현재의 위치가 경로에 영향을 미치는 것 (다른 파일로 연결할 때)
+
+```html
+<a href="another/example.html">다른 예시 파일</a>
+```
+
+> <a href="another/example.html">다른 예시 파일</a>
+
+#### E-mail/전화
+
+- 컴퓨터가 이메일을 보내주거나 전화를 걸어주는 것이 아니라 관련 프로그램이 있으면 프로그램을 사용해서 이메일을 보내주거나 전화를 걸어준다.
+
+```html
+<a href="mailto:example@gmail.com">Send Email</a>
+<a href="tel:123-5890">123-5890</a>
+```
+
+> <a href="mailto:example@gmail.com">Send Email</a>  
+> <a href="tel:123-5890">123-5890</a>
+
+### target 속성
+
+- 목적지를 어디에 표시할 것인지 결정하는 태그
+  - \_self : 현재 브라우징에서 표시된다. (기본 설정값)
+  - \_blank : 새로운 브라우징에서 표시된다.
+
+---
 
 ## 15. 엔티티(Entity)
+
+- 스페이싱이나 태그 등을 그대로 사용하고 싶을 때 사용하는 개념
+- &lt;, &gt;, &amp; 등 여러 특수문자를 그대로 사용하고 싶을 때
+- 스페이싱을 입력하는 엔티티 : &nbsp(;)
+
+> 더 많은 엔티티를 확인하고 싶다면
+> https://dev.w3.org/html5/html-author/charref 에서 확인할 수 있다.
