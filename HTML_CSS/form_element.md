@@ -199,46 +199,54 @@ type에 따라 사용할 수 있는 속성들이 다르다.
 - 숫자에 대한 유효성 검사가 진행된다.
 - 마우스나 키보드로 숫자를 +-1씩 증감이 가능하다.
 
-> `number` type 사용 예시
-
+```html
 <label for="number">NUMBER :</label>
 <input type="number" name="number" id="number" />
+```
 
 ### `range` type
 
+- 숫자를 bar 형태로 움직여서 선택할 수 있다.
 - 숫자의 값으로 변환되어 제출된다.
 
+```html
 <label for="range">RANGE :</label>
 <input type="range" name="range" id="range" />
+```
 
 ### `date` type
 
 - 시간을 제외한 연, 월, 일 제어가 선택이 가능하다.
 - submit하게 되면 문자열 형태(`2021-09-03`)로 제출이 된다.
 
-<label for="date">DATE :</label>
-<input type="date" name="date" id="date" />
+```html
+<label for="date">DATE :</label> <input type="date" name="date" id="date" />
+```
 
 ### `month` type
 
 - 연, 월 선택이 가능하다.
 
+```html
 <label for="month">MONTH :</label>
 <input type="month" name="month" id="month" />
+```
 
 ### `week` type
 
 - 연, 해당 주 선택이 가능하다.
 
-<label for="week">WEEK :</label>
-<input type="week" name="week" id="week" />
+```html
+<label for="week">WEEK :</label> <input type="week" name="week" id="week" />
+```
 
 ### `time` type
 
 - 오전, 오후와 시간을 선택할 수 있다.
 
-<label for="time">TIME :</label>
-<input type="time" name="time" id="time" />
+```html
+<label for="time">TIME :</label> <input type="time" name="time" id="time" />
+```
 
 ---
 
@@ -262,10 +270,6 @@ type에 따라 사용할 수 있는 속성들이 다르다.
 ```html
 <input type="button" value="빈 버튼" />
 ```
-
-> `button` 요소 사용 예시
-
-<input type="button" value="빈 버튼">
 
 ### `reset` type
 
@@ -300,8 +304,286 @@ type에 따라 사용할 수 있는 속성들이 다르다.
 <input type="radio" name="radiobtn" id="radio" value="r2" checked />
 ```
 
-> radio 속성 사용 예시
+---
 
-<label for="radio">RADIO :</label>
-<input type="radio" name="radiobtn" id="radio" value="r1" />
-<input type="radio" name="radiobtn" id="radio" value="r2" checked />
+## 8. input - `name`, `placeholder`, `autocomplete`, `required` 속성
+
+### `name`
+
+- 전체 form 데이터에서 어떤 데이터를 가지고 있는지 구별하는 역할
+- form 자체에는 보이지 않지만 전송되는 값에서 사용되는 필드명, 구분자
+
+### `placeholder`
+
+- 어떤 값이 들어갈지 힌트를 주는 역할
+  - 입력값의 예시를 보여줄 수 있다.
+- 해당 input에 값을 입력하게 되면 `placeholder`는 보이지 않는다.
+
+### `autocomplete`
+
+- 자동 완성 기능이 추가된다.
+- 이전에 한번이라도 입력된 값이 있다면 후보값으로 보여준다.
+  - 검색창에서 많이 본 기능
+- `on`, `off`를 이용해서 속성을 사용할 수 있다.
+- 지정하지 않으면 브라우저가 설정한 값을 따라간다.
+
+### `required`
+
+- boolean 속성
+- `required` 속성을 사용하면 해당 `input` 요소는 공백으로 제출할 수 없다.
+
+> `name`, `placeholder`, `autocomplete`, `required` 속성 사용 예시
+
+```html
+<label for="text">TEXT :</label>
+<input
+  type="text"
+  name="text"
+  id="text"
+  placeholder="텍스트를 입력하세요."
+  autocomplete="on"
+  required
+/>
+```
+
+---
+
+## 9. input - `disabled`, `readonly` 속성
+
+### `disabled`
+
+- input 요소에 커서가 올라가지 않는다.
+- input 요소 자체가 비활성화 된다.
+  - 값을 사용하지 않는다.
+- `disabled` 상태에서 submit을 하게 되면 `input_name` 자체도 넘어가지 않는다.
+
+```html
+<input type="text" name="text" id="text" disabled />
+```
+
+### `readonly`
+
+- input 요소에 커서가 올라가지 않는다.
+- `disabled`와 다르게 포커싱은 가능하다.
+- `value` 속성으로 값을 지정을 해놓고 값을 보내고 싶을때 `readonly` 속성을 사용한다.
+
+### `disabled`와 `readonly`의 차이점
+
+#### `disabled`
+
+- 값을 입력하지 못하고 form 데이터에 포함되지 않는다.
+
+#### `readonly`
+
+- 값을 입력하지 못하고 form 데이터에는 포함되어 전송된다.
+- `value` 속성을 통해서 기본값을 보낼 수 있다.
+
+```html
+<input type="text" name="text" id="text" value="20" readonly />
+```
+
+---
+
+## 10. input - `step`, `min`, `max`
+
+### 숫자에 관련된 속성
+
+### `step`
+
+- 우측의 화살표를 눌렀을 때 증가하는 수를 지정할 수 있다.
+- `step`에서 지정한 수의 배수만큼 증가한다.
+
+```html
+<input type="number" name="score" id="score" step="2" />
+```
+
+### `min`, `max`
+
+- 유효값 검사를 진행한다.
+- `number`의 최소, 최대값을 지정할 수 있다.
+
+```html
+<input type="number" name="score" id="score" min="0" max="10" />
+```
+
+> `range`, `number`와 같이 숫자를 입력하는 요소에서 사용이 가능하다.
+
+---
+
+## 11. `button`
+
+### `input`과 `button` 요소
+
+### `input` type : `reset`, `submit`, `button`
+
+- 자식 요소를 가질 수 없음
+- `reset`, `submit` type은 기본값을 가지고 있다.
+  - `value`에 값을 넣어서 텍스트를 변경할 수 있다.
+  - 단순한 텍스트만 넣을 수 있다.
+
+```html
+<input type="submit" value="눌러보세요!" />
+```
+
+<input type="submit" value="눌러보세요!">
+
+### `button` type : `reset`, `submit`, `button`
+
+- 자식 요소를 가질 수 있음
+- 자식요소로 태그를 입력 받아서 스타일링이 용이하다.
+- `reset`, `submit`, `button` type 모두 기본값이 없다.
+
+```html
+<button type="submit">👏 <b>눌러보세요!</b></button>
+```
+
+<button type="submit">👏 <b>눌러보세요!</b></button>
+
+#### 웹 접근성 고려사항
+
+> `button` 요소에 이미지나 이모지 등을 넣더라도 텍스트를 같이 넣어주는 것을 권장한다.
+
+---
+
+## 12. `select`, `option`, `optgroup`
+
+### `select`
+
+- 후보군 중에서 선택된 값을 제출하는 요소
+- `option` 요소를 자식 요소로 사용한다.
+- `option` 요소가 1개 이상 있어야 한다.
+
+### `option`
+
+- 후보군
+- 서버에 보낼 값이 보여지는 값과 다른 값을 보내고 싶을 때는 `value` 속성을 이용한다.
+- `value` 속성의 값이 없다면 보여지는 값이 `value`로 사용되어 서버로 보내지게 된다.
+
+```html
+<label for="movie">좋아하는 영화 :</label>
+<select name="movie" id="movie">
+  <option>--Please choose an option--</option>
+  <option>토이스토리</option>
+  <option value="zootopia">주토피아</option>
+  <option value="insideout">인사이드아웃</option>
+</select>
+```
+
+> 토이스토리를 선택하고 submit을 하게 되면 전송되는 값이 `movie=토이스토리`가 된다.  
+> 주토피아를 선택하고 submit을 하게 되면 전송되는 값이 `movie=zootopia`가 된다.
+
+### `required` 속성과 `option value`
+
+```html
+<select name="movie" id="movie" required>
+  <option value="">choose an option</option>
+  <option value="">movie 1</option>
+  <option value="">movie 2</option>
+</select>
+```
+
+1. select 요소에 `required` 속성을 추가한다.
+2. 모든 option value의 값을 value=""로 넣어준다.
+
+- 위와 같이 진행했을 때 첫 번째 `option`의 `value`에 대해서만 `required` 속성에 대한 알림이 나온다.
+- movie 1을 선택하고 submit을 하면 `movie= `식으로 빈 값이 전달되게 된다.
+
+#### `option` 요소에 보여지는 text를 그대로 값으로 사용하고 `required` 속성을 사용하고 싶다면
+
+```html
+<option value="">choose an option</option>
+<option>토이스토리</option>
+```
+
+> 위의 코드처럼 첫 번째 값만 value="" 로 작성하고 나머지는 `value` 속성을 사용하지 않아도 된다.
+
+#### `selected` 속성
+
+- `option` 요소 중 기본적으로 선택된 `option` 요소를 보여주고 싶을 때 사용한다.
+- `disabled` 속성도 사용가능하다.
+
+```html
+<option value="toystory">토이스토리</option>
+<option value="zootopia" selected>주토피아</option>
+```
+
+> 화면에서 토이스토리가 먼저 보이지 않고 주토피아의 `option`이 먼저 보이게 된다.
+
+### `optgroup`
+
+- `option` 요소들을 구분하고 싶을 때 사용
+- `optgroup`에 이름을 붙이고 싶을 때는 `label` 속성을 사용한다.
+
+```html
+<optgroup label="애니메이션">
+  <option>토이스토리</option>
+  <option>주토피아</option>
+  <option>인사이드아웃</option>
+</optgroup>
+<optgroup label="SF영화">
+  <option value="matrix">매트릭스</option>
+</optgroup>
+```
+
+---
+
+## 13. input - list 속성과 `datalist`
+
+### `datalist`
+
+- 단독으로 사용되는 요소는 아니다.
+- 다른 컨트롤에서 고를 수 있는 가능한, 혹은 `추천하는 선택지`를 나타내는 `option` 요소를 여러개 담는다.
+- `input` 요소와 묶을 수 있는 속성이 필요하다.
+  - `input`의 `list` 속성과 `datalist`의 `id` 속성과 매칭 된다.
+- 선택한 요소의 값을 수정할 수 있다.
+  - input type이 `text`이기 때문에
+- 작성하는 값이 `datalist` 안에 있는 값이라면 자동으로 하단에 표시를 해준다.
+
+```html
+<label for="movie">좋아하는 영화 :</label>
+<input type="text" name="movie" id="movie" list="movie-list" />
+<input type="submit" />
+
+<datalist id="movie-list">
+  <option>쥬라기 공원</option>
+  <option>토이스토리</option>
+  <option>센과 치히로의 행방불명</option>
+  <option>고질라</option>
+  <option>킹콩</option>
+</datalist>
+```
+
+> `select` : 이미 있는 값들 중에서 선택하고 수정이 되지 않는다.  
+> `datalist` : 이미 있는 값들 중 선택도 되고 수정도 가능하다. 값을 입력하고 있을 때 추천도 가능하다.
+
+---
+
+## 14. `textarea`
+
+- 멀티라인 일반 텍스트 편집 컨트롤
+  - 댓글이나 리뷰를 작성할 때 사용하는 요소
+- 내부에 자식 요소를 가질 수 있다.
+- `pre` 요소와 동일하게 작동을 한다.
+
+### `rows`, `cols`
+
+- 기본 폰트에 따라 사이즈가 조금 달라질 수 있다.
+
+#### `rows`
+
+- 보여지는 줄의 갯수
+
+#### `cols`
+
+- 보여지는 칸의 갯수
+
+```html
+<label for="comment">Comment :</label>
+<textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+```
+
+> rows, cols 속성을 이용해서 크기를 조절하는 것보다 CSS를 이용해서 크기를 조정하는 것을 권장한다.
+
+#### 사용 가능한 속성
+
+- `disabled`, `readonly`, `placeholder`, `required` + a
