@@ -120,15 +120,122 @@ font-style, font-weight, font-size, line-height, font-family 순
 ```css
 .text {
 font-style : italic
-font : italic 100 24px 30% "Gill Sans", sans-serif
+font : (italic) 100 24px /30% "Gill Sans", sans-serif
 }
 ```
 
+> 만약에 위에 font-style을 italic으로 작성했기 때문에 아래 font에서 font-style을 작성하지 않는다면, font-style은 초기값으로 돌아간다.  
+> 공백으로 뒀을 때 초기값으로 돌아가기 때문에
+
 ## 5. letter-spacing, word-spacing
+
+- 기본값은 normal
+  - 글꼴마다 기본값은 다른 값을 가지고 있음
+  - 기본값 : 가장 최적의 가독성이 좋은 상태
+  - 될 수 있으면 이 값은 조절하지 않는 것이 좋다.
+
+### letter-spacing
+
+- 글자 사이의 간격을 조정할 수 있다.
+- 음수를 적용할 수 있다.
+- rem, em 단위도 사용 가능하다.
+
+```css
+.text {
+  letter-spacing: 5px;
+}
+```
+
+> 기존 글꼴에 적용된 letter-spacing에 5px만큼의 간격 차이를 더한다.
+
+### word-spacing
+
+- 단어 사이의 간격을 조정할 수 있다.
+- 음수를 적용할 수 있다.
+- rem, em 단위도 사용 가능하다.
+- 기본값에 대한 %값도 사용이 가능하다.
+
+```css
+.text {
+  word-spacing: 10px;
+}
+```
+
+> 기존 글꼴에 적용된 word-spacing에 10px만큼의 간격 차이를 더한다.
 
 ## 6. text-align
 
+- text를 정렬하는 방법을 명시하는 속성
+
+```css
+.text {
+  text-align: center;
+  text-align: right;
+  text-align: left;
+}
+```
+
+text-align이 적용되려면
+
+- block 요소만 사용 가능하다.
+
+  - 늘어난 가로 길이에서 정렬을 하게 된다.
+  - inline 요소는 좌우의 여백이 없기 때문에 정렬을 할 수 없다.
+
+- inline 요소에 text-align을 적용하고 싶다면
+  - 부모요소를 block 요소로 둔다.
+  - 부모요소에 text-align을 적용하면 inline 요소에도 text-align이 적용 된다.
+
+```html
+<div class="container">
+  <p class="block">block 요소</p>
+
+  <span class="inline">inline 요소</span>
+</div>
+```
+
+```css
+.container {
+  text-align: center;
+}
+
+.inline {
+  text-align: center;
+}
+```
+
+> 위의 경우는 .container로 인해서 span 요소가 text-align 속성이 적용될 수 있다.
+> inline 요소에 text-align 속성을 핤 수 없다.
+
 ## 7. text-indent
+
+- 들여쓰기에 관련된 속성
+- 기본값은 0으로 들여쓰기를 하지 않은 상태
+- 음수도 사용할 수 있다.
+- 상속이 가능하다. (부모 요소에 적용하면 자식요소에도 그대로 적용된다)
+- block 요소에만 사용 가능하다.
+
+```html
+<div class="container">
+  <p class="paragraph1">paragraph1</p>
+  <p class="paragraph2">paragraph2</p>
+  <span class="inline">inline-span</span>
+</div>
+```
+
+```css
+.paragraph1 {
+  text-indent: 20px;
+}
+
+.container {
+  text-indent: 50%;
+}
+
+.inline {
+  text-indent: 30px;
+}
+```
 
 ## 8. text-decoration
 
