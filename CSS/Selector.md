@@ -707,14 +707,147 @@ div {
 
 ## 15. 범용 선택자(\_)
 
+- 전체 선택자(Universal Selector)
+- `html`의 모든 요소들이 선택이 된다.
+- 맨 위에 작성하는 것이 좋다.
+  - 왜 이 스타일링이 적용됐는지 찾기가 수월하다.
+
+```css
+* {
+  color: blue;
+}
+
+(*).red {
+  color: red;
+}
+
+p + * {
+  color: green;
+}
+```
+
+- 기존에 `class selector`, `ID selector`의 경우에는 앞에 전체 선택자가 생략된 것이다.
+
 ---
 
-## 16. 상속 제어하기 - initial
+## 16. 상속 제어하기 - `initial`
+
+- 상속 : 부모로부터 어떠한 값을 전달받는 것이다.
+- 자식 요소가 해당 속성을 가지고 있지 않을 때, 부모 요소가 해당 속성의 값이 있으면 자식 요소에게도 해당 속성이 적용된다.
+- 상속이 되지 않는 속성들이 있다.
+
+```html
+<div class="parent">
+  parent
+  <div class="child1">child1</div>
+  <div class="child2">child2</div>
+</div>
+```
+
+```css
+.parent {
+  color: blue;
+  font-size: 7px;
+}
+
+.child2 {
+  color: red;
+}
+```
+
+- 자식 요소가 부모 요소보다 속성의 값을 먼저 지정했어도 적용이 된다.
+  - `.child2`의 `color`는 red로 유지된다.
+
+#### 자식 요소에 상속된 모든 속성을 기본값으로 돌리고 싶다면
+
+```css
+.child2 {
+  all: initial;
+}
+```
+
+- 모든 속성을 초기화한다.
+- 부모 요소에서 상속된 것 뿐만 아니라 요소(ex.div)에 별도로 적용된 속성까지도 초기화한다.
+
+#### 개발자 도구
+
+- 크롬 개발자도구에서 상속된(inherited) 속성들을 볼 수 있다.
+- 해당 요소에 대한 모든 정보를 styles에서 확인할 수 있다.
 
 ---
 
-## 17. 상속 제어하기 -inherit, unset
+## 17. 상속 제어하기 - `inherit`, `unset`
+
+### `inherit`
+
+- initial과 정반대로 적용된다.
+- 모든 상속을 받는다.
+
+```css
+.parent {
+  color: blue;
+}
+
+.child1 {
+  color: red;
+}
+
+.parent * {
+  all: inherit;
+}
+```
+
+- .parent의 모든 자식 요소들은 모든 속성(all)을 상속받는다.
+
+### `unset`
+
+1. 부모로부터 상속받을 값이 존재할 때 : `inherit`
+2. 부모로부터 상속받을 값이 존재하지 않을 때 : `initial`
+
+- 다양한 속성이 적용됐을 때, 부모 요소의 속성만 상속받고 나머지는 재정의하고 싶을 때 사용한다.
+
+```css
+.parent {
+  color: blue;
+}
+
+.parent .child {
+  all: unset;
+}
+```
+
+- 부모 요소로 상속받을 값을 제외하고는 모든 속성을 `initial` 한다.
 
 ---
 
 ## 18. 우선순위
+
+1. 선언된 곳
+2. 명시도 (적용범위가 적을수록 명시도가 높은 것)
+
+- !important : 명시도가 제일 높다.
+- `inline Style` &gt; `ID Selector` &gt; `Class` / `Attribute` / `Pseudo Selector` &gt; `Type(tag) Selector` &gt; `*` &gt; `inherited`
+
+> `p` 요소에 속성을 작성한 것보다 `Class Selector`, `ID Selector`를 통해서 속성을 작성한 것이 명시도가 높다.
+
+```html
+<div id="box" class="class-box" style="color: green">Box</div>
+```
+
+```css
+#box {
+  color: blue;
+}
+
+.class-box {
+  color: red;
+}
+
+div {
+  color: purple !important;
+}
+```
+
+3. 코드 위치
+
+> 뒤 쪽에 선언된 코드가 적용된다. (브라우저가 코드를 위에서부터 읽기 때문이다.)
