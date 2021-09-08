@@ -510,3 +510,211 @@ input[type="radio"]:checked {
   content: "🌊";
 }
 ```
+
+---
+
+## 12. 가상요소 선택자 - `first-letter`, `first-line`, `selection`
+
+### `first-letter`
+
+- 첫 번째 글자에 스타일링을 할 수 있다.
+- 가상요소 선택자 `before`를 사용하게 되면 `before` 선택자의 content에 `first-letter` 선택자가 적용된다.
+
+```html
+<p class="lorem">
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Veniam blanditiis
+  cumque eum excepturi asperiores quo omnis, repellendus nam eveniet iste
+  ducimus ullam aliquam autem quam. Eos soluta maxime odio nulla.
+</p>
+```
+
+```css
+.lorem::first-letter {
+  color: red;
+}
+
+.lorem::before {
+  content: "BEFORE";
+}
+```
+
+> `<p>` 요소 안의 Lorem의 'L'의 color가 변하는 것이 아니라 content의 'B'의 color가 red로 바뀐다.
+
+### `first-line`
+
+- 첫 번째 줄에 스타일링이 적용된다.
+- 첫 번째 줄은 브라우저의 크기에 따라 달라질 수 있다.
+
+```css
+.lorem::first-line {
+  color: indianred;
+}
+```
+
+### `selection`
+
+- 선택 영역에 대한 스타일링
+- 드래그 된 영역에 스타일링을 적용할 수 있다.
+
+```css
+.lorem::selection {
+  background-color: beige;
+  color: darkgreen;
+}
+```
+
+---
+
+## 13. 선택자 결합 - 하위, 자식
+
+- 선택자 결합을 함으로써 범위를 좁혀서 요소를 선택할 수 있다.
+
+### 하위 선택자
+
+- Spacing을 사용해서 구분한다.
+- `Class`, `ID` Selector 사용 가능하다.
+
+```css
+selector selector {
+  content
+}
+```
+
+```html
+<ul>
+  <li>리스트1</li>
+  <ol>
+    <li>리스트1</li>
+    <li>리스트2</li>
+  </ol>
+  <li>리스트2</li>
+  <li>리스트3</li>
+  <li>리스트4</li>
+</ul>
+```
+
+```css
+ul li:last-child {
+  color: red;
+}
+
+.movie li:last-of-type {
+  color: darkgreen;
+}
+```
+
+> `ul` 요소안에서 `li`의 모든 `last-child`는 color가 red로 적용된다.  
+> 하위의 자식 요소까지 모두 포함하여 `last-child`를 찾게 된다.
+
+### 자식 선택자
+
+- 부등호(닫는 꺽새)를 사용해서 구분한다.
+- 바로 아래 자식들만 탐색할 수 있다.
+- 자식 요소의 자식요소까지 탐색하지 않는 것이 하위 선택자와의 차이점.
+
+```css
+ul > li:last-child {
+  color: red;
+}
+```
+
+---
+
+## 14. 형제 선택자, 그룹화
+
+### 일반 형제 선택자 결합
+
+- `~` 기호를 사용해서 결합한다.
+- 같은 level의 요소이어야 한다. (같은 부모 요소를 가지고 있어야 한다.)
+- 앞의 selector의 뒤에 있는 selector들만 탐색이 가능하다.
+
+```html
+<div>
+  <p>Coco</p>
+  <div>Coco</div>
+  <span class="content">Coco</span>
+  <div class="content">Coco</div>
+  <div>Coco</div>
+  <p>Coco</p>
+</div>
+```
+
+```css
+p ~ p {
+  color: red;
+}
+```
+
+> `p ~ p` 같은 경우 맨 앞에 있는 `p` 요소는 color가 변경되지 않는다. (본인은 포함하지 않는다)
+
+```css
+p ~ div {
+  color: blue;
+}
+
+p ~ .green {
+  color: green;
+}
+```
+
+### 인접 형제 선택자 결합
+
+- `+` 기호를 사용해서 결합한다.
+- selector1 + selector2
+  - selector1의 바로 뒤에 selector2가 있을 때 적용된다.
+
+```html
+<div>
+  <p>Coco</p>
+  <div>Coco</div>
+  <span class="green">Coco</span>
+  <div>Coco</div>
+  <div class="green">Coco</div>
+  <p>Coco</p>
+</div>
+```
+
+```css
+div + p {
+  background-color: antiquewhite;
+}
+```
+
+> `div` 요소 뒤에 `p` 요소가 있을 때 `background-color`를 변경한다.
+
+```css
+.green + div {
+  background-color: green;
+}
+```
+
+> `Class selector` 뒤에 `div` 요소가 있을 때 `div` 요소의 `background-color`를 변경한다.
+
+### 그룹화
+
+- selector가 여러개이지만 동일한 스타일링을 하고 싶을 때 사용한다.
+- 콤마(,)를 사용해서 구분할 수 있다.
+
+```css
+p,
+span,
+div {
+  color: green;
+}
+```
+
+---
+
+## 15. 범용 선택자(\_)
+
+---
+
+## 16. 상속 제어하기 - initial
+
+---
+
+## 17. 상속 제어하기 -inherit, unset
+
+---
+
+## 18. 우선순위
