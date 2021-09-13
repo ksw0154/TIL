@@ -185,30 +185,256 @@
 
 ## 7. Item - flex-grow
 
+- flex-container 요소 내부에 할당 가능한 공간의 정도를 선언한다.
+- 기본값 : 0
+- flex-grow를 선언하면 남은 공간을 형제 요소들이 나눠가진다.
+- flex-wrap: wrap으로 선언하면 flex-grow를 했을 때 줄바꿈은 일어나지만, 줄이 바뀐 상태에서 남은 공간을 가진다.
+- 음수값은 허용되지 않는다.
+- flex-grow를 설정하기 전에 item 요소들의 크기가 다르면, flex-grow를 설정하고 나서도 item 요소들의 크기가 다르다.
+
+```css
+.container {
+  display: flex;
+  /* 줄바꿈이 일어나면서 줄바뀐 상태에서 공간을 할당한다. */
+  flex-wrap: wrap;
+}
+
+.item {
+  /* 남은 공간을 1씩 나눠가진다. */
+  flex-grow: 1;
+}
+```
+
+### flex-grow를 다르게 줬을 때
+
+```css
+.container {
+  display: flex;
+}
+
+.item:nth-child(2) {
+  flex-grow: 2;
+}
+
+.item:nth-child(3) {
+  flex-grow: 1;
+}
+```
+
+- flex-grow를 2, 1 로 다르게 설정해줬기 때문에 2:1 비율로 공간을 할당한다.
+
 ---
 
 ## 8. Item - flex-shrink
+
+- flex-item 요소의 크기가 flex-container보다 클 때 사용한다.
+- 기본값 : 1
+  - 부모 요소가 display: flex; 설정을 가지고 있다면 기본적으로 자식요소는 1의 비율로 가지고 있다.
+  - item요소가 화면에 크기에 맞게 작아지는 현상이 기본값 때문에 나타난다.
+- 음수값은 허용되지 않는다.
+
+```css
+.container {
+  display: flex;
+}
+
+.item:nth-child(1) {
+  width: 200px;
+  height: 50px;
+
+  /* 화면에 크기에 요소가 작아지지 않고, 요소의 크기대로(200px) 표현된다. */
+  flex-shrink: 0;
+}
+
+.item:nth-child(3) {
+  /* 요소의 줄어드는 크기가 기본값(1)에 비해 2배로 줄어든다. */
+  flex-shrink: 2;
+}
+```
+
+- flex-grow와 원리는 동일하지만, 작동 방식은 정반대로 작동한다.
 
 ---
 
 ## 9. Item - flex-basis
 
+- flex-item의 초기 크기를 지정한다.
+- flex-basis를 지정하지 않으면 요소의 원래 크기값을 가지게 된다.
+
+```css
+.container {
+  display: flex;
+}
+
+.item {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+```
+
+- item요소들이 각각 다른 크기를 가지고 있어도, flex-basis:0을 통해서 요소들이 가지고 있는 크기를 0으로 만들고 flex-grow: 1로 설정했기 때문에 동일하게 나머지 영역을 나눠 가질 수 있다.
+- flex-basis를 0으로 작성하고 비율을 정하는 것을 많이 사용한다.
+
 ---
 
 ## 10. Item - flex (shorthand)
+
+- flex-basis는 작성하지 않는다고 초기값(auto)가 되지 않는다.
+
+### 값이 한 개일 때
+
+- number를 지정하면 flex-grow
+- lenth or percentage를 지정하면 flex-basis
+
+### 값이 두 개일 때
+
+- 첫 번째 값은 무조건 number이어야 한다. flex-grow
+- 두 번째 값을 숫자를 쓰게 되면 flex-shrink
+- 두 번째 값을 length, percentage 또는 auto를 지정하면 flex-basis
+
+### 값이 세 개일때 순서
+
+1. flex-grow number
+2. flex-shrink number
+3. flex-basis length, percentage
+
+### 주의할 점
+
+- 한 개 또는 두 개의 단위없는 숫자값을 입력하게 되면 flex-basis: 0으로 동작한다. (flex-basis의 기본값 : auto)
+
+```css
+.container {
+  display: flex;
+}
+
+.item {
+  /* flex-grow: 1, flex-shrink: 1; flex-basis: 0 */
+  flex: 1;
+}
+```
+
+### keyword
+
+- initial === flex: 0 1 auto
+- auto === flex: 1 1 auto
+- none === flex: 0 0 auto
 
 ---
 
 ## 11. Container - justify-content
 
+- 주축을 기준으로 item을 어떻게 정렬할 것인지에 대한 내용
+
+```css
+.container {
+  flex-direction: row-reverse;
+
+  justify-centent: flex-end;
+}
+```
+
+- 주축 방향이 반대로 바뀐다.
+- 주축이 바뀐 상태에서 주축이 끝나는 위치에서 정렬을 한다.
+
+```css
+.container {
+  height: 500px;
+  display: flex;
+
+  /* 주 축이 시작되는 위치에서 정렬을 시작한다. */
+  justify-content: flex-start;
+
+  /* 주 축이 끝나는 위치에서 정렬을 시작한다. */
+  justify-content: flex-end;
+
+  /* 주 축을 기준으로 가운데 정렬을 한다. */
+  justify-content: center;
+
+  /* 요소 사이의 간격이 동일하게 나눠서 정렬한다. */
+  /* flex-start와 flex-end에 여백없이 정렬한다. */
+  justify-content: space-between;
+
+  /* flex-start와 요소 사이, flex-end와 요소 사이의 간격이 요소 앞뒤로 들어간다.*/
+  /* 앞, 뒤에도 간격이 존재한다. */
+  justify-content: space-around;
+}
+```
+
 ---
 
 ## 12. Container - align-items
+
+- 교차축에 대한 정렬을 정의한다.
+- 기본값 : align-item: stretch
+- item 요소가 height를 가지지 않으면 부모 요소의 height만큼 차지한다.
+- 한 줄에 대한 교차축의 정렬을 정의한다.
+- 내부 요소가 3줄로 나뉘게 되면 3개의 container로 나뉜 것처럼 align-items를 동작한다.
+
+```css
+.container {
+  height: 500px;
+  display: flex;
+
+  /* 교차축의 길이(height)만큼 item 요소가 차지한다 (item 요소의 height가 없을 때) */
+  align-items: stretch;
+
+  /* 교차 축이 시작되는 위치에서 정렬을 시작한다. */
+  align-items: flex-start;
+
+  /* 교차 축이 끝나는 위치에서 정렬을 시작한다. */
+  align-items: flex-end;
+
+  /* 교차 축의 중심 위치에서 정렬을 시작한다. */
+  align-items: center;
+}
+```
 
 ---
 
 ## 13. Container - align-content
 
+- 여러 줄에 대한 교차축의 정렬을 정의한다.
+- 기준 : flex-box의 교차축
+
+```css
+.container {
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+
+  /* 교차 축이 시작되는 위치에서 정렬을 시작한다. */
+  align-content: flex-start;
+
+  /* 교차 축이 끝나는 위치에서 정렬을 시작한다. */
+  align-content: flex-end;
+
+  /* 교처 축의 중심 위치에서 정렬을 시작한다. */
+  align-content: center;
+
+  /* flex-start와 flex-end에 여백 없이 요소 사이의 간격이 동일하게 나뉘어서 정렬한다. */
+  align-content: space-between;
+
+  /* flex-start와 flex-end의 여백이 요소 앞 뒤로 들어간다 (맨 앞, 맨 뒤에 간격이 존재한다) */
+  align-content: space-around;
+}
+```
+
 ---
 
 ## 14. Item - align-self
+
+- item에 사용하는 속성
+- 특정 item 요소에 align 속성을 적용할 수 있다.
+
+```css
+.container {
+  display: flex;
+  flex-wrap: wrap;
+
+  align-items: center;
+}
+
+.item:nth-child(4) {
+  align-self: flex-start;
+}
+```
