@@ -269,4 +269,238 @@
 
 ## 10. Container - justify-items, align-items
 
+- 하나의 item에 대한 정렬을 명시한다.
+
+### justify-items
+
+- 기본값 : justify-items: stretch
+- start, end와 같은 속성을 사용하면 item의 크기만큼만 영역을 가질 수 있다.
+- item에 직접적으로 justify 속성을 적용하고 싶다면 justify-self를 사용하면 된다.
+
+```css
+.container {
+  width: 100%;
+  height: 500px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+
+  justify-items: start;
+}
+
+.item:nth-child(1) {
+  justify-self: end;
+}
+```
+
+### align-items
+
+- justify-items와 동일하게 적용된다.
+
+```css
+.container {
+  width: 100%;
+  height: 300px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+
+  align-items: center;
+}
+
+.item:nth-child(2) {
+  align-self: stretch;
+}
+```
+
 ---
+
+## 11. Item - grid-row, grid-column
+
+- 두 속성 모두 shorthand
+- grid를 선으로 인식하기 때문에 3칸으로 나눈다면 총 4개의 선이 필요하다.
+- grid-row-start, end는 선의 번호를 표현한다.
+- 개발자도구를 통해서 보면 grid 선의 번호를 확인할 수 있다.
+- -1은 제일 하단의 선을 의미한다.
+- 요소가 차지할 부분의 시작(start)와 끝(end)부분을 명시할 수 있다.
+
+### span
+
+- 시작 선과 차지할 칸의 숫자를 명시할 수 있다.
+
+```css
+.container {
+  width: 100%;
+  height: 300px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+}
+
+.item {
+  border: 1px solid black;
+  background-color: indianred;
+}
+
+.item:first-child {
+  background-color: indigo;
+
+  /* 첫번째 선부터 세번째 선까지 요소의 크기를 할당한다. (2칸) */
+  grid-row-start: 1;
+  grid-row-end: 3;
+
+  /* shorthand */
+  grid-row: 1 / -1;
+
+  /* 칸의 갯수를 작성하고 싶을 때 */
+  /* 첫번째 선부터 세번째 선까지 요소의 크기를 할당한 것과 동일하다. */
+  grid-row: 1 / span 2;
+
+  /* -1(grid의 1과 정반대에 위치해있다.) */
+  grid-column-start: 1;
+  grid-column-end: -1;
+
+  /* shorthand */
+  grid-column: 1 / -1;
+}
+```
+
+---
+
+## 12. Item - grid-area
+
+- grid-row-start, grid-column-start, grid-row-end, grid-column-end를 동시에 설정하는 shorthand
+- / 를 이용해서 4가지를 한번에 작성할 수 있다.
+
+```css
+.item:first-child {
+  grid-row: 4 / span 2;
+  grid-column: 2 / -1;
+
+  /* row-start / column-start / row-end / column-end */
+  /* 위의 grid-row, grid-column에 작성한 내용과 동일하다. */
+  grid-area: 4 / 2 / span 2 / -1;
+}
+```
+
+---
+
+## 13. Item - order
+
+- 기본값 : 0
+- item의 순서를 지정할 수 있다.
+- 동일한 order 값을 가지고 있다면 markup 순서대로 순서를 가진다.
+
+```css
+/* 제일 마지막 요소의 순서가 맨 앞으로 배치된다. */
+.item:last-child {
+  order: -1;
+}
+```
+
+---
+
+## 14. Item - z-index
+
+- 요소의 쌓임의 순서를 제어할 수 있다.
+- 기본값 : 0
+
+```css
+.item:nth-child(1) {
+  grid-row: 1 / span 2;
+  grid-column: 1 / span 2;
+  z-index: 1;
+}
+
+.item:nth-child(2) {
+  grid-row: 1 / 2;
+  grid-column: 2 / 4;
+}
+```
+
+- nth-child(1)과 nth-child(2)의 요소의 위치는 겹친다.
+- nth-child(2) 요소가 markup의 순서가 뒤에 있기 때문에 nth-child(1) 요소보다 위에 있게 된다.
+- z-index의 값이 클수록 요소가 더 앞으로 나오게 된다.
+
+---
+
+## 15. Grid 단위 - fr, min-content, max-content
+
+### fr
+
+- width, height를 비율로 사용해서 나눌 때 사용한다.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 100px;
+}
+```
+
+- 세번째 행은 100px로 고정되고 나머지 width에서 1 : 2 비율로 나눠가지게 된다.
+
+### min-content
+
+- 더 이상 줄어들 수 없을 때까지 줄어든다.
+- 영단어의 경우 자를수 없기 때문에 가장 긴 영단어를 기준으로 min-content가 정해진다.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: min-content 1fr 2fr;
+}
+```
+
+### max-content
+
+- 한 줄에 보일 수 있는 형태까지 늘린다.
+- content를 자르지 않는 부분까지 max-content가 정해진다.
+
+```css
+.container {
+  display: grid;
+  grid-template-columns: max-content 1fr 2fr;
+}
+```
+
+- length, min-content, max-content에 할당되고 남은 크기를 fr 요소가 나눠서 가져간다.
+
+---
+
+## 16. Grid 단위 - auto-fill, auto-fit
+
+- 반응형으로 grid를 디자인할 때 유용한 속성
+- 남는 공간에 대해서 column이나 row를 채울 수 있다.
+
+### auto-fill
+
+- 남는 공간에 추가적으로 요소가 들어간다.
+- 요소가 한 줄로 다 채워진 이후에는 뒷 공간들은 공백으로 나타난다.
+
+```css
+.container {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+}
+```
+
+### auto-fit
+
+- auto-fill로 빈공간을 채웠지만 그래도 남는 공간이 생겼을 때 사용한다.
+- 요소를 한 줄로 다 채워진 이후에 뒷 공간들은 요소들이 나눠서 가져간다.
+
+```css
+.container {
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+```
+
+### minmax(min, max)
+
+- 최소값과 최대값을 지정할 수 있다.
