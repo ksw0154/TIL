@@ -62,3 +62,131 @@ console.log(x); // number 10
 - symbol 타입의 경우 TypeError가 발생한다.
 
 ### number 타입으로 변환
+
+- `-`, `*`, `/` 모두 산술 연산자이다.
+- 산술 연산자의 역할은 숫자 값을 만드는 것이다.
+- 자바스크립트 엔진은 산술 연산자 표현식을 평가하기 위해서 숫자타입이 아닌 피연산자를 숫자 타입으로 암묵적 타입 변환한다.
+- 피연산자를 숫자 타입으로 변환할 수 없는 경우에는 산술 연산을 수행할 수 없으므로 NaN을 반환한다.
+
+```javascript
+1 - "1"; // 0
+1 * "10"; // 10
+1 / "one"; // NaN
+```
+
+#### 비교 연산자
+
+- 피연산자의 크기를 비교하므로 컨텍스트 상 숫자 타입이여야 한다.
+- 숫자 타입이 아닌 피연산자를 숫자 타입으로 암묵적 타입 변환을 한다.
+
+```javascript
+"1" > 0; //true
+```
+
+- 빈 문자열, 빈 배열, null, false는 0으로 true는 1로 변환된다.
+- 객체와 빈 배열이 아닌 배열, undefined는 변환되지 않아 NaN이 된다.
+
+### boolean 타입으로 변환
+
+- 논리적 참, 거짓을 반환해야 하는 표현식
+- 제어문 조건식의 평가 결과를 boolean 타입으로 암묵적 타입 변환한다.
+
+- false 값 : false, undefined, null, 0, -0, NaN, ''(빈 문자열)
+- true 값 : false 값 이외의 값
+
+## 3. 명시적 타입 변환
+
+- 래퍼 객체 생성자 함수를 new 연산자 없이 호출하는 방법
+- 자바스크립트에서 제공하는 빌트인 메소드를 사용하는 방법
+- 암묵적 타입 변환
+
+### string 타입으로 변환
+
+1. String 생성자 함수를 new 연산자 없이 호출하는 방법
+2. Object.prototype.toString 메소드를 사용하는 방법
+3. 문자열 연결 연산자를 이용하는 방법
+
+```javascript
+// String 생성자 함수를 new 연산자 없이 호출
+String(1);
+
+// Object.prototype.toString
+(1).toSting();
+
+// 문자열 연결 연산자
+1 + "";
+```
+
+### number 타입으로 변환
+
+1. Number 생성자 함수를 new 연산자 없이 호출하는 방법
+2. parseInt, parseFloat 함수를 사용 (문자열만 변환 가능)
+3. 단항 연결 연산자를 이용
+4. 산술 연산자를 이용
+
+```javascript
+// Number 생성자 함수
+Number("0");
+Number(true); // 1
+
+// parseInt, parseFloat 함수 사용
+parseInt("0");
+parseFloat("10.53");
+
+// 단항 연결 연산자
++"0";
++"-1";
++true; // 1
+
+// 산술 연산자
+"0" * 1; // 0
+```
+
+### boolean 타입으로 변환
+
+1. Boolean 생성자 함수를 new 연산자 없이 호출하는 방법
+2. ! 부정 논리 연산자를 두번 사용하는 방법
+
+```javascript
+// Boolean 생성자 함수 이용
+Boolean("x"); // true
+Boolean(""); // false
+
+Boolean({}); // true
+Boolean([]); // true
+
+// ! 부정 논리 연산자를 두번 사용
+!!"x"; // true
+
+!!0; // false
+```
+
+## 4. 단축 평가
+
+```javascript
+"Cat" && "Dog"; // 'Dog'
+```
+
+- 논리곱 연산자 `&&`는 두개의 피연산자가 모두 true 일 때 true를 반환한다.
+- 두 개의 피연산자가 모두 true인 시점은 'Dog'가 true일 때 이다.
+- 논리곱 연산자는 논리 연산의 결과를 결정한 두 번째 피연산자의 결과 즉, 문자열 'Dog'를 그대로 반환한다.
+
+```javascript
+"Cat" || "Dog"; // 'Cat'
+```
+
+- 논리합 연산자 `||`은 피연산자 중 하나만 true여도 true를 반환한다.
+
+```javascript
+// 단축 평가를 사용한 매개변수의 기본값 설정
+function getStringLength(str) {
+  str = str || "";
+  return str.length;
+}
+
+getStringLength(); // 0
+getStringLength("hi"); // 2
+```
+
+- 이러한 단축 평가는 함수의 인수(argument)를 초기화 할 때 유용하다.
+- 만약 str이 null인 경우에는 str.length를 참조하면 Type Error가 발생한다.
