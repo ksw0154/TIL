@@ -31,7 +31,7 @@ console.log(input);
 ### 코드 구성
 
 - `JavaScript`는 문법의 대부분이 `C, C++, Java로부터 차용하여 만들어진 스크립트 기반의 언어`
-- 다수의 표현식0`expression`)으로 하나의 명령문(`statement`)이 만들어진다.
+- 다수의 표현식(`expression`)으로 하나의 명령문(`statement`)이 만들어진다.
 - 명령문으로 프로그램이 수행된다.
 
 ```javascript
@@ -332,3 +332,31 @@ admin.sizes.height = 200;
 console.log(user); // { name: 'john', age: 23, sizes: { height: 180, weight: 82 } }
 console.log(admin); // { name: 'john', age: 23, sizes: { height: 200, weight: 82 } }
 ```
+
+---
+
+## 형 변환
+
+- 느슨한 타입 or 동적 타입 언어로 자료형을 명시적으로 선언할 필요가 없는 언어이다.
+- 자동으로 암묵적 형 변환을 수행한다.
+- 강제적으로 형 변환을 하기 위해서는 자료형 함수를 이용해 명시적 형 변환을 수행한다.
+
+```javascript
+console.log(String(1 / 0)); // Infinity
+
+console.log(Number("")); // 0
+console.log(Number("123")); // 123
+console.log(Number("Hello")); // NaN
+console.log(Number("0")); // 0
+console.log(Number("NaN")); // NaN
+console.log(Number(null)); // 0
+console.log(Number(undefined)); // NaN
+
+console.log(parseInt("123.123")); // 123
+console.log(parseFloat("123.123")); // 123.123
+```
+
+#### Boolean
+
+- NaN, Null, undefined는 false
+- 문자열이라면 빈 문자열도 true
