@@ -118,9 +118,78 @@ console.log(!1234); // false
 
 ## SCOPE
 
+- 변수 혹은 상수에 접근할 수 있는 범위
+- 모듈 / 함수 내 코드에서 동일한 변수 사용시 간섭을 줄이는 용도로 사용한다.
+- Scope란 Global Scope와 Local Scope의 타입으로 구분된다.
+
+### Global Scope
+
+- 전역에 선언되어 어디에서도 접근 가능
+
+### Local Scope (block, function level scope)
+
+- 특정 지역에 선언되어, 해당 지역 내에서만 접근 가능
+
+```javascript
+let x = 1;
+let z = 3;
+
+console.log(x); // 1
+
+{
+  // local scope (block)
+  let x = 3;
+  let y = 4;
+  console.log(x); // 3
+  console.log(y); // 4
+  console.log(z); // 3
+}
+
+function scope() {
+  // local scope (function level scope)
+  let x = 5;
+  let y = 6;
+  console.log(x); // 5
+  console.log(y); // 6
+}
+
+scope();
+
+console.log(x); // 1
+console.log(y); // ReferenceError: y is not defined
+```
+
+### SCOPE 중첩
+
+- scope 내부의 scope의 경우 기존의 scope의 변수의 범위와 동일한 범위를 가진다.
+
+```javascript
+let x = 1;
+
+{
+  let y = 2;
+
+  {
+    let z = 3;
+    console.log(z); // 3
+  }
+  console.log(y); // 2
+  console.log(z); // Reference Error: y is not defined
+}
+
+console.log(x); // 1
+console.log(y); // Reference Error: y is not defined
+```
+
 ---
 
 ## 조건문
+
+### if-else
+
+- 알고리즘에서 논리적 비교를 할 때 사용되는 조건식
+- if, if else, else 키워드를 통해 구성된다.
+- 실행 문장이 단일 문장인 경우에는 {} 생략 가능
 
 ---
 
