@@ -643,3 +643,35 @@ for (let key in fruits) {
 ---
 
 ## 배열 탐색 - 변형
+
+### 배열 탐색
+
+- index 탐색 (앞에서): Array.indexOf(item, from)
+- index 탐색 (뒤에서): Array.lastIndexOf(item, from)
+- 값 포함 여부 확인: Array.includes(item, from)
+
+```javascript
+let fruits = ["apple", "orange", "banana"];
+
+console.log(fruits.indexOf("Orange")); // 값이 없으므로 -1 반환
+console.log(fruits.lastIndexOf("banana")); // index 반환
+console.log(fruits.lastIndexOf("apple")); // 0 반환
+console.log(fruits.lastIndexOf("orange", 0));
+// -1을 반환하는데 0번째 원소부터 앞으로 가기 떄문에 값이 나올 수 없다.
+
+console.log(fruits.includes("orange")); // true
+```
+
+### 배열 변형
+
+- 오름차순 정렬: Array.sort()
+- 내림차순 정렬: Array.reverse()
+- 배열 값을 문자열로 변환: Array.join(separater)
+
+```javascript
+let nums = [0, -1, 3, -2, 1, 6];
+
+console.log(nums.reverse());
+console.log(nums.sort());
+console.log(nums.join(";")); // -1;-2;0;1;3;6
+```
