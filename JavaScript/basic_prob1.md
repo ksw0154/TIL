@@ -79,3 +79,35 @@ function answer(employee) {
 ---
 
 ## 무한 뺼셈 - 반복문
+
+```javascript
+function answer(s, e) {
+  let s = 6;
+  let e = 3;
+
+  let sequence = [];
+
+  sequence.push(s);
+  sequence.push(e);
+  let sum;
+  while (true) {
+    // let item1 = sequence.slice(-2)[0];
+    // let item2 = sequence.slice(-2)[1];
+
+    sum = s - e;
+    s = e;
+    e = sum;
+
+    // if (item1 - item2 < 0) {
+    //   break;
+    // } else {
+    //   sequence.push(item1 - item2);
+    // }
+
+    if (c < 0) break;
+    sequence.push(e);
+  }
+
+  return sequence;
+}
+```
