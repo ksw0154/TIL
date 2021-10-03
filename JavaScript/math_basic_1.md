@@ -15,7 +15,7 @@
 - 완전탐색으로 경우의 수를 푸는 알고리즘
   - 순열 : 서로 다른 n개의 원소 중에서 r를 중복 없이 골라 순서에 상관 있게 나열하는 경우의 수
   - 조합 : 서로 다른 n개의 원소 중에서 r를 중복 없이 골라 순서에 상관 없이 나열하는 경우의 수
-  - 중복 순열 : 서로 다른 n개의 원소 중에서 r를 중복 있게 골라 순서에 상관 없이 나열하는 경우의 수
+  - 중복 순열 : 서로 다른 n개의 원소 중에서 r를 중복 있게 골라 순서에 상관 있게 나열하는 경우의 수
 
 ### 점화식
 
@@ -114,3 +114,99 @@ function big_o(n) {
 ---
 
 ## 경우의 수
+
+- 순열 : nPr (순서에 상관이 있다)
+- 조합 : nCr (순서에 상관이 없다)
+
+---
+
+## 순열
+
+- 서로 다른 n개의 원소 중에서 r를 중복 없이 골라 순서에 상관 있게 나열하는 경우의 수 (nPr)
+- ex. 3개의 알파벳으로 단어를 만드는 경우의 수
+
+```javascript
+function permutation(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; i++) {
+      if (i == j) continue;
+      for (let k = 0; k < arr.length; k++) {
+        if (i == k) continue;
+        if (j == k) continue;
+      }
+    }
+  }
+}
+```
+
+```javascript
+let input = ["a", "b", "c"];
+let count = 0;
+
+function permitation(arr, s, r) {
+  // 재귀함수를 멈춰야 할 조건
+  if (s == r) {
+    count++;
+    console.log(arr.join(" "));
+    return;
+  }
+
+  // 재귀를 돌면서 변경되어야 할 부분 (메인 로직)
+  for (let i = s; i < arr.length; i++) {
+    [arr[s], arr[i]] = [arr[i], arr[s]]; // swap
+    permutation(arr, s + 1, r);
+    [arr[s], arr[i]] = [arr[i], arr[s]]; // 원상복귀
+  }
+}
+
+permutation(input, 0, 2);
+console.log(count);
+```
+
+---
+
+## 조합
+
+- 서로 다른 n개의 원소 중에서 r개를 중복 없이 골라 순서에 상관없이 나열하는 경우의 수 (nCr)
+- ex. 4개의 숫자 카드에서 2개를 뽑는 경우
+
+```javascript
+let input = [1, 2, 3, 4];
+let count = 0;
+
+function combination(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      count++;
+      console.log(arr[i], arr[j]);
+    }
+  }
+}
+
+combination(input);
+console.log(count);
+```
+
+### 재귀함수를 이용한 조합
+
+```javascript
+let input = [1, 2, 3, 4];
+let output = [];
+let count = 0;
+
+function combination(arr, data, s, idx, r) {
+  if (s == r) {
+    count++;
+    console.log(data);
+    return;
+  }
+
+  for (let i = idx; arr.length - i >= r - s; i++) {
+    data[s] = arr[i];
+    combination(arr, data, s + 1, i + 1, r);
+  }
+}
+
+combination(input, output, 0, 0, 2);
+console.log(count);
+```
