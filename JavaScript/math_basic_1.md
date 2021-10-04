@@ -210,3 +210,125 @@ function combination(arr, data, s, idx, r) {
 combination(input, output, 0, 0, 2);
 console.log(count);
 ```
+
+---
+
+## 점화식 (재귀식)
+
+- 이웃하는 두 개의 항 사이에 성립하는 관계를 나타낸 관계식
+
+### 대표적인 점화식
+
+- 등차 수열
+- 등비 수열
+- 팩토리얼
+- 피보나치 수열
+
+### 등차 수열
+
+```javascript
+let result;
+
+function forloop(s, t, number) {
+  let acc = 0;
+
+  for (let i = 1; i <= number; i++) {
+    if (i == 1) {
+      acc += s;
+    } else {
+      acc += t;
+    }
+  }
+
+  return acc;
+}
+
+result = forloop(3, 2, 5);
+```
+
+#### 점화식
+
+```javascript
+let result;
+
+function recursive(s, t, number) {
+  if (number == 1) {
+    return s;
+  }
+  return recursive(s, t, number - 1) + t;
+}
+
+result = recursive(3, 2, 5);
+```
+
+### 등비 수열
+
+```javascript
+let result;
+
+function forloop(s, t, number) {
+  let acc = 1;
+
+  for (let i = 1; i <= number; i++) {
+    if (i == 1) {
+      acc *= s;
+    } else {
+      acc *= t;
+    }
+
+    console.log(i, acc);
+  }
+
+  return acc;
+}
+
+result = forloop(3, 2, 5);
+```
+
+#### 점화식
+
+```javascript
+let result;
+
+function recursive(s, t, number) {
+  if (number == 1) {
+    return s;
+  }
+  return recursive(s, t, number - 1) * t;
+}
+
+result = recursive(3, 2, 5);
+```
+
+### 팩토리얼
+
+```javascript
+let result;
+
+function recursive(number) {
+  if (number == 1) {
+    return 1;
+  }
+
+  return recursive(number - 1) * number;
+}
+
+result = recursive(5);
+console.log(result);
+```
+
+### 피보나치 수열
+
+- f(n) = f(n-1) + f(n-2)
+
+```javascript
+function recursive(number) {
+  if (number == 1 || number == 0) {
+    return number;
+  }
+
+  return recursive(number - 1) + recursive(number - 2);
+}
+
+result = recursive(5);
+```
