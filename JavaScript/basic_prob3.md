@@ -124,14 +124,82 @@ function answer(arr) {
 
 ## 스팸 메일 - 종합
 
+```javascript
+function answer(str) {
+  let spam_flag;
+
+  // str = str.toUpperCase();
+
+  // if (str.includes("ADVERT")) {
+  //   spam_flag = true;
+  // } else {
+  //   spam_flag = false;
+  // }
+
+  spam_flag = str.toUpperCase().includes("ADVERT");
+
+  return spam_flag;
+}
+```
+
 ---
 
 ## 배열 회전 - 종합
+
+```javascript
+function answer(user) {
+  let reverse = [];
+
+  // user code(1)
+  // for (let i = user.length - 1; i >= 0; i--) {
+  //   reverse.push(user[i]);
+  // }
+
+  // user code(2)
+  for (let i = 0; i < user.length / 2; i++) {
+    tmp = user[i];
+    user[i] = user[user.length - 1 - i];
+    user[user.length - 1 - i] = tmp;
+  }
+
+  reverse = user;
+
+  return reverse;
+}
+```
 
 ---
 
 ## 문자 교정 - 종합
 
+```javascript
+function answer(str) {
+  let fix_str = "";
+
+  let tmp = str.split(" ");
+  for (let i = 0; i < tmp.length; i++) {
+    tmp[i] = tmp[i][0].toUpperCase() + tmp[i].slice(1);
+  }
+  fix_str = tmp.join(" ");
+
+  return fix_str;
+}
+```
+
 ---
 
 ## 2차원 배열의 곱셈 합 - 종합
+
+```javascript
+function answer(arr) {
+  let product = 1;
+
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr[i].length; j++) {
+      product *= arr[i][j];
+    }
+  }
+
+  return product;
+}
+```
