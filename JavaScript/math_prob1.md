@@ -205,3 +205,31 @@ function solution(strings, n) {
   return strings.sort((x, y) => (x[n] == y[n] ? (x > y ? 1 : -1) : x[n] > y[n] ? 1 : -1));
 }
 ```
+
+---
+
+## 실전 문제 풀이 (기본) - 직사각형 별찍기
+
+```javascript
+process.stdin.setEncoding("utf8");
+process.stdin.on("data", (data) => {
+  const n = data.split(" ");
+  const a = Number(n[0]),
+    b = Number(n[1]);
+
+  let text = "";
+  for (let i = 0; i < b; i++) {
+    for (let j = 0; j < a; j++) {
+      text += "*";
+    }
+    console.log(text);
+    text = "";
+  }
+
+  // user code
+  const row = "*".repeat(a);
+  for (let i = 0; i < b; i++) {
+    console.log(row);
+  }
+});
+```
