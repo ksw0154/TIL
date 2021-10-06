@@ -233,3 +233,117 @@ process.stdin.on("data", (data) => {
   }
 });
 ```
+
+---
+
+## 실전 문제 풀이 (기본) - 두 정수 사이의 합
+
+```javascript
+function solution(a, b) {
+  var answer = 0;
+  let start, end;
+
+  if (a > b) {
+    start = b;
+    end = a;
+  } else {
+    start = a;
+    end = b;
+  }
+
+  for (let i = start; i <= end; i++) {
+    answer += i;
+  }
+  return answer;
+
+  // user code
+  return ((a + b) * (Math.abs(a - b) + 1)) / 2;
+}
+```
+
+---
+
+## 실전 문제 풀이 (기본) - 부족한 금액 계산하기
+
+```javascript
+function solution(price, money, count) {
+  var answer = 0;
+
+  for (let i = 1; i <= count; i++) {
+    answer += i * price;
+  }
+  return answer > money ? answer - money : 0;
+
+  // user code
+  answer = (price * (1 + count) * count) / 2 - money;
+
+  return answer > 0 ? answer : 0;
+}
+```
+
+---
+
+## 실전 문제 풀이 (기본) - K번째 수
+
+```javascript
+function solution(array, commands) {
+  var answer = [];
+
+  for (let item of commands) {
+    let tmp_array = array.slice(item[0] - 1, item[1]);
+    tmp_array.sort((x, y) => x - y);
+    answer.push(tmp_array[item[2] - 1]);
+  }
+
+  return answer;
+
+  // user code (map을 이용한다)
+  return commands.map((command) => {
+    const [s, e, p] = command;
+    return array.slice(s - 1, e).sort((x, y) => x - y)[p - 1];
+  });
+}
+```
+
+---
+
+## 실전 문제 풀이 (기본) - 나누어 떨어지는 숫자 배열
+
+```javascript
+function solution(arr, divisor) {
+  var answer = [];
+
+  arr.sort((x, y) => x - y);
+
+  arr.map((element) => {
+    if (element % divisor == 0) {
+      answer.push(element);
+    }
+  });
+
+  return answer.length ? answer : [-1];
+
+  // user code
+  var answer = arr.filter((n) => n % divisor == 0);
+
+  return answer.length ? answer.sort((x, y) => x - y) : [-1];
+}
+```
+
+---
+
+## 실전 문제 풀이 (기본) - 같은 숫자는 싫어
+
+```javascript
+function solution(arr) {
+  var answer = [arr[0]];
+
+  for (let i = 1; i < arr.length; i++) {
+    if (answer[answer.length - 1] != arr[i]) {
+      answer.push(arr[i]);
+    }
+  }
+
+  return answer;
+}
+```
