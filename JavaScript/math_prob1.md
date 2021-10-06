@@ -345,5 +345,8 @@ function solution(arr) {
   }
 
   return answer;
+
+  // user code
+  return arr.filter((v, i) => v != arr[i + 1]);
 }
 ```
