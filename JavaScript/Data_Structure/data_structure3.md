@@ -77,13 +77,94 @@ Stack.prototype.includes = function (element, position = 0) {
 
 ## 스택 문제풀이 - 기차 운행
 
+- 기차 순서를 가질 수 있는 경우의 수
+
+```javascript
+function answer(train) {
+  // train 순서로 나갈 수 있는지 판단
+  // stack 생성
+  let stack = [];
+  let num = 0;
+
+  for (let i = 0; i < train.length; i++) {
+    while (stack.length === 0 || stack[stack.length - 1] < train[i]) {
+      stack.push(++num);
+    }
+  }
+
+  if (stack[stack.length - 1] === train[i]) {
+    stack.pop();
+  } else {
+    return false;
+  }
+
+  return true;
+}
+
+console.log(answer([1, 2, 3]));
+```
+
 ---
 
 ## 스택 문제풀이 - 괄호 짝 찾기
 
+```javascript
+function answer(str) {
+  let result = [];
+
+  let stack = [];
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] == "(") {
+      stack.push(i);
+    } else if (str[i] == ")") {
+      if (stack.length === 0) {
+        return [];
+      } else {
+        result.push([stack.pop(), i]);
+      }
+    }
+
+    if (stack.length != 0) {
+      return [];
+    }
+  }
+
+  return result;
+}
+
+console.log(answer("(a*(b+c)+d)+(e*(f+g))"));
+// console.log(answer("(a+b)"));
+```
+
 ---
 
 ## 스택 문제풀이 - 접시 꺼내기
+
+```javascript
+function answer(str) {
+  let result = [];
+
+  let stack = [];
+  let dish = str.split("").sort().join("");
+  let dish_index = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    while (stack.isEmpty() || stack.peek() < str[i]) {
+      stack.push(dish[dish_index++]);
+      result.push(0);
+    }
+
+    if (stack.isEmpty() || stack.peek() > str[i]) {
+      return [];
+    } else {
+      stack.pop();
+      result.push(1);
+    }
+  }
+  return result;
+}
+```
 
 ---
 
