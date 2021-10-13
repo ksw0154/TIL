@@ -139,6 +139,174 @@ console.log(cq);
 
 ## 원형 큐 구현하기 (2)
 
+```javascript
+// enqueue() : 데이터 추가
+CircularQueue.prototype.enqueue = function (element) {
+  if (this.isFull()) return false;
+
+  this.array[this.tail % this.size] = element;
+  this.tail++;
+  // this.tail = (this.tail + 1) % this.size
+  this.length++;
+
+  return true;
+};
+
+// dequeue() : 데이터 삭제
+CircularQueue.prototype.dequeue = function () {
+  if (this.isEmpty()) return undefined;
+
+  // element는 삭제되는 변수를 임시로 저장하기 위해서 사용
+  let element = this.array[this.head % this.size];
+  delete this.array[this.head % this.size];
+  this.head++;
+  this.length--;
+
+  return element;
+};
+
+let cq = new CircularQueue([1, 2, 3]);
+
+console.log(cq);
+```
+
 ---
 
 ## 원형 큐 구현하기 (3)
+
+```javascript
+// front() : 가장 첫 데이터 반환
+CircularQueue.prototype.front = function () {
+  return this.length == 0 ? undefined : this.array[this.head];
+};
+
+// size() : 큐 내 데이터 개수 확인
+CircularQueue.prototype.dataSize = function () {
+  return this.length;
+};
+
+// clear() : 큐 초기화
+CircularQueue.prototype.clear = function (size = DEFAULT_SIZE) {
+  this.array = [];
+  this.size = size;
+  this.length = 0;
+  this.head = 0;
+  this.tail = 0;
+};
+```
+
+---
+
+## 데크
+
+- Double-Ended Queue의 약자
+- 삽입과 삭제가 양쪽 끝에서 모두 발생할 수 있는 선형 자료 구조
+
+### 구현 메서드
+
+- 데이터 전체 획득 / 비어있는지 확인 : getBuffer(), isEmpty()
+- 데이터 추가 / 삭제 : pushFront(), popFront(), pushBack(), popBack(),
+- 첫 번째 & 끝 데이터 반환 / 사이즈 / 전체 삭제 : front(), back(), size(), clear()
+
+---
+
+## 데크 구현하기 (1)
+
+```javascript
+// Deque() : 초기 속성값 설정을 위한 생성자 함수
+function Deque(array = []) {
+  this.array = array;
+}
+
+// getBuffer() : 객체 내 데이터 셋 반환
+Deque.prototype.getBuffer = function () {
+  return this.array.slice();
+};
+
+// isEmpty() : 데이터가 비어 있는지 확인
+Deque.prototype.isEmpty = function () {
+  return this.array.length == 0;
+};
+
+let dq = new Deque([1, 2, 3]);
+console.log(dq);
+
+let data = dq.getBuffer();
+console.log(data === dq.array);
+console.log(data);
+
+console.log(dq.isEmpty());
+console.log(Object.getOwnPropertyDescriptors(Deque.prototype));
+```
+
+---
+
+## 데크 구현하기 (2)
+
+```javascript
+// pushFront() : 앞쪽 데이터 추가
+Deque.prototype.pushFront = function (element) {
+  return this.array.unshift(element);
+};
+
+// popFront() : 앞쪽 데이터 삭제
+Deque.prototype.popFront = function () {
+  return this.array.shift();
+};
+
+// pushBack() : 뒤쪽 데이터 추가
+Deque.prototype.pushBack = function (element) {
+  return this.array.push(element);
+};
+
+// popBack() : 뒤쪽 데이터 삭제
+Deque.prototype.popBack = function () {
+  return this.array.pop();
+};
+
+let dq = new Deque([1, 2, 3]);
+
+dq.pushFront(0);
+dq.pushBack(4);
+console.log(dq);
+
+console.log(dq.popFront());
+console.log(dq.popBack());
+console.log(dq);
+```
+
+---
+
+## 데크 구현하기 (3)
+
+```javascript
+// front() : 가장 첫 데이터 반환
+Deque.prototype.front = function () {
+  return this.array.length == 0 ? undefined : this.array[0];
+};
+
+// back() : 가장 끝 데이터 반환
+Deque.prototype.back = function () {
+  return this.array.length == 0 ? undefined : this.array[this.array.length - 1];
+};
+
+// size() : 큐 내 데이터 개수 확인
+Deque.prototype.size = function () {
+  return this.array.length;
+};
+
+// clear() : 큐 초기화
+Deque.prototype.clear = function () {
+  this.array = [];
+};
+
+let dq = new Deque([1, 2, 3]);
+console.log(dq);
+console.log(dq.front());
+console.log(dq.back());
+console.log(dq.size());
+dq.clear();
+console.log(dq);
+```
+
+---

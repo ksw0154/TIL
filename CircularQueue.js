@@ -23,6 +23,50 @@ CircularQueue.prototype.isFull = function () {
   return this.length == this.size;
 };
 
+// enqueue() : 데이터 추가
+CircularQueue.prototype.enqueue = function (element) {
+  if (this.isFull()) return false;
+
+  this.array[this.tail % this.size] = element;
+  this.tail++;
+  // this.tail = (this.tail + 1) % this.size
+  this.length++;
+
+  return true;
+};
+
+// dequeue() : 데이터 삭제
+CircularQueue.prototype.dequeue = function () {
+  if (this.isEmpty()) return undefined;
+
+  // element는 삭제되는 변수를 임시로 저장하기 위해서 사용
+  let element = this.array[this.head % this.size];
+  delete this.array[this.head % this.size];
+  this.head++;
+  this.length--;
+
+  return element;
+};
+
+// front() : 가장 첫 데이터 반환
+CircularQueue.prototype.front = function () {
+  return this.length == 0 ? undefined : this.array[this.head];
+};
+
+// size() : 큐 내 데이터 개수 확인
+CircularQueue.prototype.dataSize = function () {
+  return this.length;
+};
+
+// clear() : 큐 초기화
+CircularQueue.prototype.clear = function (size = DEFAULT_SIZE) {
+  this.array = [];
+  this.size = size;
+  this.length = 0;
+  this.head = 0;
+  this.tail = 0;
+};
+
 let cq = new CircularQueue([1, 2, 3]);
 
 console.log(cq);
