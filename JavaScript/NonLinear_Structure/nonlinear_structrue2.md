@@ -250,18 +250,196 @@ console.log(answer(8, 2, 3));
 
 ## 큐, 데크 문제 풀이 - 데크 만들기
 
+```javascript
+function Deque(array = []) {
+  this.array = array;
+}
+
+Deque.prototype.push_front = function (element) {
+  this.array.unshift(element);
+};
+
+Deque.prototype.push_back = function (element) {
+  this.array.push(element);
+};
+
+Deque.prototype.pop_front = function () {
+  return this.array.shift() != undefined ? this.array.shift() : -1;
+};
+
+Deque.prototype.pop_back = function () {
+  return this.array.pop() != undefined ? this.array.pop() : -1;
+};
+
+Deque.prototype.empty = function () {
+  return this.array.length == 0 ? 1 : 0;
+};
+
+Deque.prototype.size = function () {
+  return this.array.length;
+};
+
+Deque.prototype.front = function () {
+  return this.array[0] != 0 ? this.array[0] : -1;
+};
+
+Deque.prototype.back = function () {
+  return this.array[this.array.length - 1] != 0 ? this.array[this.array.length - 1] : -1;
+};
+
+function answer(cmds) {
+  let result = [];
+
+  let dq = new Deque();
+
+  for (let i = 0; i < cmds.length; i++) {
+    let func = cmds[i].split(" ");
+
+    switch (func[0]) {
+      case "push_front":
+        dq.push_front(Number(func[1]));
+        break;
+      case "push_back":
+        dq.push_back(Number(func[1]));
+        break;
+      case "pop_front":
+        result.push(dq.pop_front());
+        break;
+      case "pop_back":
+        result.push(dq.pop_back());
+        break;
+      case "empty":
+        result.push(dq.empty());
+        break;
+      case "size":
+        result.push(dq.size());
+        break;
+      case "front":
+        result.push(dq.front());
+        break;
+      case "back":
+        result.push(dq.back());
+        break;
+      default:
+        break;
+    }
+  }
+
+  return result;
+}
+
+let cmds = ["push_back 2", "push_front 2", "pop_front", "pop_back", "pop_front"];
+
+console.log(answer(cmds));
+```
+
 ---
 
 ## 딕셔너리
+
+- key, value 형태로 다양한 자료형 개체(Entity)를 저장하는 자료구조 (Map과 유사하다)
+
+### 메서드
+
+- 획득 / 초기화 / 크기 : getBuffer(), clear(), size()
+- 개체 추가 / 삭제 / 반환 / 여부 : set(). remove(), get(), has()
+- key, value 배열 반환 / 고차함수 : keys(), values(), each()
 
 ---
 
 ## 딕셔너리 구현하기 (1)
 
+```javascript
+// Dictionary() : 개체(Entity)를 저장할 생성자
+function Dictionary(items = {}) {
+  this.items = items;
+}
+
+Dictionary.prototype.getBuffer = function () {
+  return { ...this.items };
+};
+
+Dictionary.prototype.clear = function () {
+  this.items = {};
+};
+
+Dictionary.prototype.size = function () {
+  return Object.keys(this.items).length;
+};
+
+let dict = new Dictionary({ age: 19, name: "alice" });
+```
+
 ---
 
 ## 딕셔너리 구현하기 (2)
 
+```javascript
+// has() : 개체 존재 여부 확인 (key 정보를 배열로 반환)
+Dictionary.prototype.has = function (key) {
+  // return value in this.items
+  return this.items.hasOwnProperty(key);
+};
+
+// set() : 개체(Entity) 추가
+Dictionary.prototype.set = function (key, value) {
+  this.items[key] = value;
+};
+
+// get() : 개체(Entity)의 value 반환
+Dictionary.prototype.get = function (key) {
+  return this.has(key) ? this.items[key] : undefined;
+};
+
+// remove() : 개체(Entity) 삭제
+Dictionary.prototype.remove = function (key) {
+  if (this.has(key)) {
+    delete this.items[key];
+    return true;
+  }
+
+  return false;
+};
+```
+
 ---
 
 ## 딕셔너리 구현하기 (3)
+
+```javascript
+// keys() : 모든 key 값을 배열 형태로 반환
+Dictionary.prototype.keys = function () {
+  return Object.keys(this.items);
+};
+
+// values(): 모든 value 값을 배열 형태로 반환
+Dictionary.prototype.values = function () {
+  // let values = [];
+  // for (let k in this.items) {
+  //   if (this.has(k)) {
+  //     values.push(this.items[k]);
+  //   }
+  // }
+  // return values;
+
+  return Object.values(this.items);
+};
+
+// each() : 모든 개체 요소에 대해 callback 함수 수행 (:= foreach)
+Dictionary.prototype.each = function (fn) {
+  for (let k in this.items) {
+    if (this.has(k)) {
+      fn(k, this.items[k]);
+    }
+  }
+};
+
+let dict = new Dictionary({ age: 19, name: "alice" });
+
+function printDictionary(key, value) {
+  console.log(`key: ${key}`);
+  console.log(`value: ${value}`);
+}
+
+dict.each(printDictionary);
+```
