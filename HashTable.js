@@ -1,3 +1,5 @@
+const { Hash } = require("crypto");
+
 const HASH_SIZE = 37;
 
 // Element() : key, value 저장을 위한 생성자
@@ -57,8 +59,44 @@ HashTable.prototype.remove = function (key) {
   return element;
 };
 
+// clear() : 초기화
+HashTable.prototype.clear = function () {
+  this.table = new Array(HASH_SIZE);
+  this.length = 0;
+};
+
+// size() : 크기 변환
+HashTable.prototype.size = function () {
+  return this.length;
+};
+
+// getBuffer() : 데이터 셋 반환
+// list 형태로 element가 empty가 아닌 것만 가지게 된다.
+HashTable.prototype.getBuffer = function () {
+  let array = [];
+  for (let i = 0; i < this.table.length; i++) {
+    if (this.table[i]) {
+      array.push(this.table[i]);
+    }
+  }
+
+  return array;
+};
+
+// print() : 데이터 셋 출력
+HashTable.prototype.print = function () {
+  for (let i = 0; i < this.length; i++) {
+    if (this.table[i]) {
+      console.log(i + " -> " + this.table[i].key + " : " + this.table[i].value);
+    }
+  }
+};
+
 let ht = new HashTable();
 
 ht.put("Ana", 192);
 ht.put("Paul", 305);
-ht.remove("Paul");
+
+ht.print();
+console.log(ht);
+console.log(ht.getBuffer());
