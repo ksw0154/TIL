@@ -87,7 +87,8 @@ graph.addEdge("B", "E");
 graph.addEdge("B", "F");
 graph.addEdge("E", "I");
 
-graph.print();
+// graph.print();
+console.log(graph.edge);
 
 // 무방향 그래프일 떄
 
