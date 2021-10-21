@@ -95,7 +95,11 @@ console.log(trie.search("be"));
 
 ```javascript
 // delete()
+// word : 입력 받을 단어
+// current : 현재 노드를 가리키는 변수 (재귀를 돌리면서 필요한 정보)
+// index : 현재 단어의 위치 (재귀를 돌리면서 필요한 정보)
 Trie.prototype.delete = function (word, current = this.root, index = 0) {
+  // 종료 조건
   if (index === word.length) {
     if (!current.endOfWord) return false;
 
@@ -104,6 +108,7 @@ Trie.prototype.delete = function (word, current = this.root, index = 0) {
     return Object.keys(current.children).length === 0;
   }
 
+  // 로직 처리 부분
   let ch = word[index];
   let node = current.children[ch];
 
