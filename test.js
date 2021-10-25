@@ -1,32 +1,9 @@
-function Dictionary(items = {}) {
-  this.items = items;
+function solution(numbers) {
+  let strings = numbers.map((num) => num + "");
+
+  const answer = strings.sort((a, b) => b + a - (a + b)).join("");
+  return answer[0] === "0" ? "0" : answer;
 }
 
-Dictionary.prototype.set = function (key, value) {
-  this.items[key] = value;
-};
-
-Dictionary.prototype.has = function (key) {
-  return this.items.hasOwnProperty(key);
-};
-function answer(class_1, class_2) {
-  let result = [];
-
-  let dict = new Dictionary();
-  for (let i = 0; i < class_1.length; i++) {
-    dict.set(class_1[i], true);
-  }
-
-  for (let i = 0; i < class_1.length; i++) {
-    if (dict.has(class_2[i])) {
-      result.push(class_2[i]);
-    }
-  }
-
-  return result;
-}
-
-let class_1 = ["Kali", "Oliver", "Naomi"];
-let class_2 = ["Oliver", "Naomi", "Maya"];
-
-console.log(answer(class_1, class_2));
+let numbers = [3, 30, 34, 5, 9];
+console.log(solution(numbers));
